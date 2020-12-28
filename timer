@@ -1,0 +1,13 @@
+function ui.drawUpdates()
+	if ps.settings.ui.guion == "off" then
+		return
+    killTimer(ui.timer)
+	end
+	if ui.timer then killTimer(ui.timer) end
+
+	ui.timer = tempTimer(1,[[ ui.drawUpdates() ]] )
+	
+	for _, f in pairs(ui.functions) do
+		f()
+  end
+end 
