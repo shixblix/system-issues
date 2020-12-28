@@ -11,3 +11,42 @@ function ui.drawUpdates()
 		f()
   end
 end 
+
+
+----------------------------------------------------------------
+
+function load_ui()
+	if ps.settings.ui.guion == "off" then
+		defup_timer()
+		return
+	else
+		ps.chat.use = true
+	end
+	ui.setBorders()
+	ui:drawContainers()
+	ui.togglesHBox()
+	ui.drawToggles()
+
+	ui.drawElements()
+	ui.drawAllMiniconsoles()
+	ui.drawMap()
+	ui.drawStatusBar()
+	ui.drawChannelLabel()
+
+	--ui.drawUpdates()
+
+	ps.chat:create()
+
+	ps.highlighter.load()
+
+	tempTimer(30, function()
+		if unreadChangelogs() > 0 then
+			warning("You have <red>" .. unreadChangelogs() .. " <white>unread changelog(s)!")
+			cecho("            <white>Click ")
+			echoLink("HERE", [[expandAlias("changes")]], "Show Changelogs")
+			cecho("<white> or type 'changes' to read them!")
+		end
+	end)
+
+	defup_timer()
+end
