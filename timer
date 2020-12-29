@@ -1,3 +1,21 @@
+
+        <Lua error:attempt to compare string with number>
+[ERROR:] object:<error in Lua code> function:<no debug data available>
+        <Lua error:attempt to compare string with number>
+[ERROR:] object:<error in Lua code> function:<no debug data available>
+        <Lua error:attempt to compare string with number>
+[ERROR:] object:<error in Lua code> function:<no debug data available>
+
+
+
+
+
+
+
+
+
+
+
 function ui.drawUpdates()
 	if ps.settings.ui.guion == "off" then
 		return
