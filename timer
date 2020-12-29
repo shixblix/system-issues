@@ -1,61 +1,15 @@
 function ui.drawUpdates()
 	if ps.settings.ui.guion == "off" then
 		return
-    killTimer(ui.timer)
 	end
 	if ui.timer then killTimer(ui.timer) end
 
-	ui.timer = tempTimer(1,[[ ui.drawUpdates() ]] )
+	ui.timer = tempTimer(1, ui.drawUpdates())
 	
 	for _, f in pairs(ui.functions) do
 		f()
   end
 end 
+-------------------------------------------------------------------
 
-
-----------------------------------------------------------------
-
-function load_ui()
-	if ps.settings.ui.guion == "off" then
-		defup_timer()
-		return
-	else
-		ps.chat.use = true
-	end
-	ui.setBorders()
-	ui:drawContainers()
-	ui.togglesHBox()
-	ui.drawToggles()
-
-	ui.drawElements()
-	ui.drawAllMiniconsoles()
-	ui.drawMap()
-	ui.drawStatusBar()
-	ui.drawChannelLabel()
-
-	--ui.drawUpdates()
-
-	ps.chat:create()
-
-	ps.highlighter.load()
-
-	tempTimer(30, function()
-		if unreadChangelogs() > 0 then
-			warning("You have <red>" .. unreadChangelogs() .. " <white>unread changelog(s)!")
-			cecho("            <white>Click ")
-			echoLink("HERE", [[expandAlias("changes")]], "Show Changelogs")
-			cecho("<white> or type 'changes' to read them!")
-		end
-	end)
-
-	defup_timer()
-end
-
-
-[ERROR:] object:<event handler function> function:<load_ui>
-        <attempt to compare string with number>
-[ERROR:] object:<error in Lua code> function:<no debug data available>
-        <Lua error:attempt to compare string with number>
-[ERROR:] object:<error in Lua code> function:<no debug data available>
-        <Lua error:attempt to compare string with number>
-[ERROR:] object:<error in Lua code> function:<no debug data available>
+        <[string "Script: ui timer"]:7: stack overflow>
