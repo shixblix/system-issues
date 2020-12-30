@@ -1,0 +1,32 @@
+function ui.togglesOn()
+	system_buttons = system_buttons or {}
+
+	local i = 0
+	
+	ui.elements.sysTogglesConsole:clear()	
+	local last = nil
+	for system, state in pairsByKeys(ps.systems) do
+		local pm = state and "+" or "-"
+		local color = state and "green" or "red"
+		
+		ui.elements.sysTogglesConsole:echo(" ")
+		if i % 2 == 1 then
+      ui.elements.sysTogglesConsole:echo(string.rep(" ", ( ui.toggleCharWidth/2 )-#last-1))
+		end
+		ui.elements.sysTogglesConsole:fg(color)
+		ui.elements.sysTogglesConsole:setBgColor(33,33,33)
+		ui.elements.sysTogglesConsole:echoLink(system, [[toggleSystem("]]..system..[[")]], "Toggle", true)
+		if i % 2 == 1 then
+			ui.elements.sysTogglesConsole:echo("\n")
+		end
+		last = system
+		i = i + 1
+	end
+end
+
+function toggleSystem(system)
+	ps.systems[system] = not ps.systems[system]
+	info(system:title() .. " has been turned " .. (ps.systems[system] and "<a_green>On" or "<a_red>Off"))
+	ui.togglesOn()
+	saveTable("systems")
+end
