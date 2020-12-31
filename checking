@@ -1,0 +1,33 @@
+alias = ^\!(.+)$
+
+
+--Goto Lua command. Runs code, checks variables, etc. EX: !ps.vitals.maxhp
+timing.start("runlua")
+local a, b = loadstring("return " .. matches[2])
+if not a then
+	a, b = assert(loadstring(matches[2]))
+end
+
+local r = {a()}
+
+local time = timing.stop("runlua")
+if time == "" then
+	time = "0s"
+end
+
+if r then
+	if type(r[1]) == 'nil' then
+		info("<white>Code assertion successful, <a_darkcyan>nil <white>returned in <a_darkgreen>" .. time)
+	elseif #r == 1 then
+		if type(r[1]) == 'string' or type(r[1]) == 'number' then 
+			info("<white>Assertion successful in <a_darkgreen>" .. time .. "<white>, results are:\n     <SlateGray>" .. r[1]) 
+		else
+			info("<white>Assertion successful in <a_darkgreen>" .. time .. "<white>, results are:") 
+			display(r[1]) 
+		end
+  
+	else 
+		info("<white>Assertion successful in <a_darkgreen>" .. time .. "<white>, results are:") 
+		display(r) 
+	end
+end
